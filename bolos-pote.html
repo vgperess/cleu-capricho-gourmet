@@ -1,0 +1,576 @@
+<html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolos de Pote - Cleu's Capricho Gourmet</title>
+    <link
+    rel="icon"
+    href="/empres/img/logo2.png"
+    type="image/x-icon"
+    >
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pastel-green-light: #d1e8d0;
+            --pastel-green: #a8d5a2;
+            --pastel-green-dark: #86c17f;
+            --cream: #fff9f0;
+            --brown: #6b4226;
+        }
+        
+        *{
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream);
+            color: #333;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--pastel-green-dark);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--pastel-green);
+            border: none;
+            color: var(--brown);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--pastel-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .product-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            bottom: -10px;
+            left: 0;
+            background-color: var(--pastel-green);
+        }
+        
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--pastel-green);
+            color: var(--brown);
+        }
+        
+        .filter-btn:hover:not(.active) {
+            background-color: var(--pastel-green-light);
+        }
+        
+        .cake-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--pastel-green);
+            color: var(--brown);
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .cake-image {
+            transition: all 0.5s ease;
+        }
+        
+        .product-card:hover .cake-image {
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--cream);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close {
+            color: var(--brown);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: black;
+        }
+        
+        .flavor-option {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .flavor-option:hover {
+            background-color: var(--pastel-green-light);
+        }
+        
+        .flavor-option.selected {
+            background-color: var(--pastel-green);
+            border-color: var(--pastel-green-dark);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            overflow: hidden;
+            width: fit-content;
+        }
+        
+        .quantity-btn {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-btn:hover {
+            background-color: var(--pastel-green-light);
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+            background: transparent;
+        }
+        
+        .quantity-input:focus {
+            outline: none;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--brown);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--pastel-green-dark);
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 8px;
+        }
+        
+        /* Pagination */
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-btn.active {
+            background-color: var(--pastel-green);
+            color: var(--brown);
+        }
+        
+        .pagination-btn:hover:not(.active) {
+            background-color: var(--pastel-green-light);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 100;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+            
+            .mobile-menu ul {
+                padding: 1rem;
+            }
+            
+            .mobile-menu li {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="logo text-2xl text-[#6b4226] flex items-center" onclick="showPage('home')">
+                <img src="img/logo.png" alt="logo" width="70" class="mr-2">
+                Cleu's Capricho Gourmet
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-menu">
+                <ul class="flex space-x-8">
+                    <li><a href="index.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Home</a></li>
+                    <li><a href="bolos.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Bolos</a></li>
+                    <li><a href="cones.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Cones Trufados</a></li>
+                    <li><a href="#" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium active">Bolos de Pote</a></li>
+                    <li><a href="sazonal.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Páscoa
+                    </a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn text-[#6b4226]" id="mobile-menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>Bolos de Pote</span>
+        </div>
+        
+        <!-- Hero Section -->
+        <section class="bg-[#d1e8d0] rounded-2xl p-8 mb-12">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold text-[#6b4226] mb-4">Bolos de Pote</h1>
+                    <p class="text-lg mb-6">Nossos deliciosos bolos de pote são feitos com ingredientes selecionados e muito carinho. Perfeitos para qualquer ocasião, são uma explosão de sabor em cada colherada.</p>
+                    <a href="#produtos" class="btn-primary inline-block">Ver Produtos</a>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <img src="img/logo2.png" alt="logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-12" id="produtos">
+            <h2 class="section-title text-3xl font-bold text-[#6b4226] mb-8">Nossos Bolos </h2>
+            
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="tradicional">
+                    <div class="relative overflow-hidden">
+                        <div class="cake-badge">Mais Vendido</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center cake-image">
+                            <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383242132533411953/6cfd8ea7-c0bf-4b65-a1c7-9edb74d24503.jpg?ex=684e141f&is=684cc29f&hm=d2b73d1c69d4cb14f81639ed12ea0947373bd424f03bee7e7e32970102090d10&" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo de Pote de Chocolate</h3>
+                        <p class="text-gray-600 mb-4">Delicioso bolo de chocolate com recheio de brigadeiro cremoso e cobertura de chocolate belga.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 15,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card" data-category="tradicional">
+                    <div class="relative overflow-hidden">
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center cake-image">
+                           <img src="https://media.discordapp.net/attachments/770817143323099148/1383240079186722826/7151ef21-de0c-4cfe-ab3c-1c28179977fd.jpg?ex=684e1236&is=684cc0b6&hm=2df89258ad1216c10972136a1ddcf4f397adbffb2375328a503c675428010823&=&format=webp&width=646&height=863" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo de Pote de Chocolate Branco</h3>
+                        <p class="text-gray-600 mb-4">Delicioso bolo de chocolate com recheio de brigadeiro de ninho cremoso e cobertura de chocolate belga branco.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 15,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card" data-category="tradicional">
+                    <div class="relative overflow-hidden">
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center cake-image">
+                            <img src="https://media.discordapp.net/attachments/770817143323099148/1383240076997169162/cd65d281-c882-4e81-81be-5afaf46748b5.jpg?ex=684e1235&is=684cc0b5&hm=e24250f832f6a3b1cae96b431bf35d55407fe0f0df9f30bf3ac275974466d03d&=&format=webp&width=646&height=863" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Copo da Felicidade</h3>
+                        <p class="text-gray-600 mb-4">Copo da felicidade com recheio de ninho e chocolate ao leite, com pedaços de bolo e ouro branco.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 15,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card" data-category="especial">
+                    <div class="relative overflow-hidden">
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center cake-image">
+                            <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383242929090330684/4a5aa994-23ea-4744-a4a8-4cd69fe12750.jpg?ex=684e14dd&is=684cc35d&hm=5b998cea26a5f3f4c7adf3415854b472d779adc1003fdb56866071c9ec847d1b&" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo de Pote de Doce de Leite</h3>
+                        <p class="text-gray-600 mb-4">Copo da felicidade com recheio de chocolate ao leite, amendoim, pedaços de bolo e ferrero rocher.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 17,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card" data-category="especial">
+                    <div class="relative overflow-hidden">
+                        <div class="cake-badge">Novo</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center cake-image">
+                           <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383243900466233474/fff23d92-35f0-4035-9d55-ac1aedd559c9.jpg?ex=684e15c5&is=684cc445&hm=0f1f09efb563a81a1cb218fcdaf38459b4bf4a6454b4e8eaf85f066e2be8d0b5&" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Fatia de Brownie</h3>
+                        <p class="text-gray-600 mb-4">Fatia de Brownie com recheio de chocolate ao leite, chocolate belga e ferrero rocher.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 19,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card" data-category="especial">
+                    <div class="relative overflow-hidden">
+                        <div class="cake-badge">Premium</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center cake-image">
+                            <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383232495595815154/IMG_8308.png?ex=684e0b26&is=684cb9a6&hm=a8ff4201869caa55b9dd10b63c5ed1763b4c2d1bc8787d5f172a0f7d1b7bf4d6&" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Caixa Café da Manhã Premiado</h3>
+                        <p class="text-gray-600 mb-4">2 Bolos de pote, 2 Cones trufados, 2 potes com salgados sortidos, 1 yogurte, pão e fatias em formato de coração de presunto e queijo.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 79,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </section>
+        
+        <!-- Information Section -->
+        <section class="bg-white rounded-2xl p-8 mb-12">
+            <div class="flex flex-col md:flex-row items-start gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-2xl font-bold text-[#6b4226] mb-6">Informações sobre nossos Bolos de Pote</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Ingredientes</h3>
+                            <p class="text-gray-600">Utilizamos ingredientes frescos e de alta qualidade em todos os nossos bolos de pote. Cada camada é preparada com cuidado para garantir o melhor sabor e textura.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Personalização</h3>
+                            <p class="text-gray-600">Oferecemos opções de personalização para eventos especiais, como casamentos, aniversários e festas corporativas. Entre em contato para discutir opções de embalagens e quantidades.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Encomendas</h3>
+                            <p class="text-gray-600">Para encomendas de grandes quantidades, recomendamos fazer o pedido com pelo menos 2 dias de antecedência. Para pedidos menores, podemos atender com 24 horas de antecedência.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-2xl font-bold text-[#6b4226] mb-6">Perguntas Frequentes</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Qual é a validade dos bolos de pote?</h3>
+                            <p class="text-gray-600">Nossos bolos de pote têm validade de 5 dias se mantidos refrigerados. Recomendamos consumir em até 3 dias para melhor experiência de sabor.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Vocês fazem bolos sem lactose?</h3>
+                            <p class="text-gray-600">Sim, temos opções de bolos de pote sem lactose. Por favor, informe suas restrições alimentares ao fazer o pedido.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Fazem entrega?</h3>
+                            <p class="text-gray-600">Sim, realizamos entregas em toda a cidade. O valor do frete varia conforme a região e será informado no momento da encomenda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    
+        <!-- Call to Action -->
+        <section class="bg-[#a8d5a2] rounded-2xl p-8 text-center">
+            <h2 class="text-3xl font-bold text-[#6b4226] mb-4">Pronto para experimentar nossos bolos de pote?</h2>
+            <p class="text-[#6b4226] mb-6 max-w-2xl mx-auto">Entre em contato conosco para encomendar seus bolos de pote favoritos ou tirar qualquer dúvida. Estamos ansiosos para adoçar seu dia!</p>
+            <div class="flex justify-center space-x-4">
+                <a href="https://contate.me/ios/cleuscaprichogourmet" target="_blank" class="btn-primary bg-white text-[#6b4226] hover:bg-[#f0f9ef]">WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#6b4226] text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Cleu's Capricho Gourmet</h3>
+                    <p class="mb-4">Adoçando momentos especiais com criações artesanais feitas com amor e dedicação.
+                        <br>
+                        <br>
+                        &copy; 2025 Victor Garcia, Thais Estrela, Lucas Lemos e Felipe Dourado. Todos os direitos reservados. Universidade Católica de Brasília
+                    </p>
+                    <div class="flex space-x-4">
+                        <a target="_blank" href="https://www.instagram.com/cleus.capricho.gourmet/" class="text-white hover:text-[#a8d5a2]">
+                            <svg xmlns="https://www.instagram.com/cleus.capricho.gourmet/" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"></path>
+                            </svg>
+                        </a>
+                        <a target="_blank" href="https://contate.me/ios/cleuscaprichogourmet" class="text-white hover:text-[#a8d5a2]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-white hover:text-[#a8d5a2]">Home</a></li>
+                        <li><a href="bolos.html" class="text-white hover:text-[#a8d5a2]">Bolos</a></li>
+                        <li><a href="cones.html" class="text-white hover:text-[#a8d5a2]">Cones Trufados</a></li>
+                        <li><a href="bolos-pote.html" class="text-white hover:text-[#a8d5a2]">Bolos de Pote</a></li>
+                        <li><a href="sazonal.html" class="text-white hover:text-[#a8d5a2]">Páscoa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contato</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>Rua Manoel Neto, nº 1491<br>Icó - Ceará</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a&lt;script&gt;(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML=" window.__cf$cv$params="{r:'94f4c4ef42cc941d',t:'MTc0OTg1MTA2Ny4wMDAwMDA='};var" a="document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);&quot;;b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var" if(window.addeventlistener)document.addeventlistener('domcontentloaded',c);else{var="" e="document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&amp;&amp;(document.onreadystatechange=e,c())}}}})();&lt;/script"></path></svg></li></ul></div></div></div></footer></body></html>

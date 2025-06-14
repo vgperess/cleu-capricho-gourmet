@@ -1,0 +1,761 @@
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cleu's Capricho Gourmet</title>
+        <link
+        rel="icon"
+        href="/empres/img/logo2.png"
+        type="image/x-icon"
+        >
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+        <link rel="icon" type="image/x-icon" href="empres/img/favicon.ico">
+        <style>
+            :root {
+                --pastel-green-light: #d1e8d0;
+                --pastel-green: #a8d5a2;
+                --pastel-green-dark: #86c17f;
+                --cream: #fff9f0;
+                --brown: #6b4226;
+            }
+            
+            body {
+                font-family: 'Poppins', sans-serif;
+                background-color: var(--cream);
+                color: #333;
+            }
+            
+            h1, h2, h3, h4 {
+                font-family: 'Playfair Display', serif;
+            }
+            
+            .logo {
+                font-family: 'Playfair Display', serif;
+                font-weight: 700;
+            }
+            
+            .nav-link {
+                position: relative;
+            }
+            
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -2px;
+                left: 0;
+                background-color: var(--pastel-green-dark);
+                transition: width 0.3s ease;
+            }
+            
+            .nav-link:hover::after,
+            .nav-link.active::after {
+                width: 100%;
+            }
+            
+            .btn-primary {
+                background-color: var(--pastel-green);
+                border: none;
+                color: var(--brown);
+                padding: 12px 24px;
+                border-radius: 30px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            
+            .btn-primary:hover {
+                background-color: var(--pastel-green-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            
+            .product-card {
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                background-color: white;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            }
+            
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            }
+            
+            .section-title {
+                position: relative;
+                display: inline-block;
+                margin-bottom: 2rem;
+            }
+            
+            .section-title::after {
+                content: '';
+                position: absolute;
+                width: 60%;
+                height: 3px;
+                bottom: -10px;
+                left: 0;
+                background-color: var(--pastel-green);
+            }
+            
+            .page-container {
+                min-height: 80vh;
+                padding: 2rem 0;
+                margin: 0 15%;
+            }
+            
+            .instagram-post {
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+            
+            .instagram-post:hover {
+                transform: scale(1.03);
+            }
+            
+            /* Custom cake shape divider */
+            .cake-divider {
+                position: relative;
+                height: 60px;
+                margin: 3rem 0;
+            }
+            
+            .cake-divider::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background-color: var(--pastel-green);
+                transform: translateY(-50%);
+            }
+            
+            .cake-icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--cream);
+                padding: 0 20px;
+                font-size: 24px;
+                color: var(--pastel-green-dark);
+            }
+            
+            /* Seasonal badge */
+            .seasonal-badge {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background-color: #ff6b6b;
+                color: white;
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 0.8rem;
+                transform: rotate(15deg);
+                box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            }
+            
+            /* Mobile menu */
+            .mobile-menu {
+                display: none;
+            }
+            
+            @media (max-width: 768px) {
+                .desktop-menu {
+                    display: none;
+                }
+                
+                .mobile-menu {
+                    display: block;
+                }
+                
+                .page-container {
+                    margin: 0 5%;
+                }
+            }
+
+img.rounded {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+
+.image-cropper img{
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 75%; 
+    margin: 0 0 0 -20%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;  
+}
+        </style>
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="logo text-2xl text-[#6b4226] flex items-center" onclick="showPage('home')">
+                <img src="img/logo.png" alt="logo" width="70" class="mr-2">
+                Cleu's Capricho Gourmet
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-menu">
+                <ul class="flex space-x-8">
+                    <li><a href="index.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('home')">Home</a></li>
+                    <li><a href="bolos.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('bolos')">Bolos</a></li>
+                    <li><a href="cones.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('cones')">Cones Trufados</a></li>
+                    <li><a href="bolos-pote.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('bolosPote')">Bolos de Pote</a></li>
+                    <li><a href="sazonal.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('sazonal')">Páscoa</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <div class="mobile-menu">
+                <button id="mobile-menu-button" class="text-[#6b4226]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-nav" class="hidden bg-white w-full py-4 px-4 shadow-lg">
+            <ul class="space-y-4">
+                <li><a href="#" class="block text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('home'); closeMobileMenu()">Home</a></li>
+                <li><a href="#" class="block text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('bolos'); closeMobileMenu()">Bolos</a></li>
+                <li><a href="#" class="block text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('cones'); closeMobileMenu()">Cones Trufados</a></li>
+                <li><a href="#" class="block text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('bolosPote'); closeMobileMenu()">Bolos de Pote</a></li>
+                <li><a href="#" class="block text-[#6b4226] hover:text-[#86c17f] font-medium" onclick="showPage('sazonal'); closeMobileMenu()">Páscoa</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="bg-[#d1e8d0] py-16">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between" style="margin: 0 15%;">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold text-[#6b4226] mb-4">Doces que encantam todos os sentidos</h1>
+                    <p class="text-lg mb-6">Bem-vindo à Cleu's Capricho Gourmet, onde cada doce é feito com amor e dedicação para tornar seus momentos ainda mais especiais.</p>
+                   
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <img src="img/logo2.png" alt="logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="py-16">
+            <div class="container mx-auto px-4" style="margin: 0 15%;">
+                <h2 class="section-title text-3xl font-bold text-[#6b4226] mb-8">Nossos Destaques</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Product 1 -->
+                   <div class="product-card">
+                        <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383198230103330846/IMG_8285.png?ex=684deb3c&is=684c99bc&hm=3923594dadfbbd9c731d52b193afceddbd1a4cb372514d0fe1a6acad9c4fdeef&" alt="logo" class="h-65 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolos Personalizados</h3>
+                            <p class="text-gray-600 mb-4">Bolos deliciosos feitos sob medida para suas ocasiões especiais.</p>
+                            <a href="bolos.html" class="text-[#86c17f] font-medium hover:underline">Ver mais →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383211352558010388/IMG_8286.png?ex=684df775&is=684ca5f5&hm=e4b6aeecd485c8ec3a3ab5b279367eae8b27ccfcdb033d41512c4e0a6ce83e76&" alt="logo" class="h-65 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-[#6b4226] mb-2">Cones Trufados</h3>
+                            <p class="text-gray-600 mb-4">Deliciosos cones recheados com nossas trufas especiais.</p>
+                            <a href="cones.html" class="text-[#86c17f] font-medium hover:underline">Ver mais →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <img src="https://media.discordapp.net/attachments/770817143323099148/1383217667950907463/IMG_8291.png?ex=684dfd56&is=684cabd6&hm=c2d5aafe4047f1481b1ba5692552af978401503b85fecd4ad281fa6759a6e0a4&=&format=webp&quality=lossless" alt="logo" class="h-65 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolos de Pote</h3>
+                            <p class="text-gray-600 mb-4">Camadas de bolo e recheio em porções individuais perfeitas.</p>
+                            <a href="bolos-pote.html" class="text-[#86c17f] font-medium hover:underline">Ver mais →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-16 bg-[#f0f9ef]">
+            <div class="container mx-auto px-4" style="margin: 0 15%;">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="image-cropper">
+                        <img src="https://media.discordapp.net/attachments/770817143323099148/1383191420675948644/IMG_8281.png?ex=684de4e5&is=684c9365&hm=71e3ae4352cacffc6848b461d0b14caa8221a556507d5e3b15eb490eac7b728c&=&format=webp&quality=lossless&width=785&height=968" alt="">
+                    </div>
+                    <div class="md:w-1/2 md:pl-8">
+                        <h2 class="section-title text-3xl font-bold text-[#6b4226] mb-4">Sobre Nós</h2>
+                        <p class="mb-4">A Cleu's Capricho Gourmet nasceu da paixão por criar doces que não apenas satisfazem o paladar, mas também encantam os olhos. Nossa confeitaria se dedica a transformar ingredientes de alta qualidade em verdadeiras obras de arte comestíveis.</p>
+                        <p class="mb-6">Cada produto é cuidadosamente elaborado com atenção aos detalhes, garantindo que cada mordida seja uma experiência memorável. Nosso compromisso é trazer doçura e alegria para todos os momentos especiais da sua vida.</p>
+                        <div class="flex space-x-4">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Feed -->
+        <section class="py-16">
+            <div class="container mx-auto px-4" style="margin: 0 15%;">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="section-title text-3xl font-bold text-[#6b4226]">Siga-nos no Instagram</h2>
+                    <a href="https://www.instagram.com/cleus.capricho.gourmet/" target="_blank" class="flex items-center text-[#6b4226] hover:text-[#86c17f]">
+                        <span class="mr-2">@cleus.capricho.gourmet</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Instagram Post 1 -->
+                    <div class="instagram-post">
+                        <div class="bg-[#f0f9ef] aspect-square flex items-center justify-center">
+                            <a target="_blank" href="https://www.instagram.com/p/DHyJX7WACOM/?img_index=1"> <img  src="https://cdn.discordapp.com/attachments/770817143323099148/1383185690531069973/IMG_8275.png?ex=684ddf8e&is=684c8e0e&hm=d63713ed74e57f1577524003c4ee66970ada40a4d328b8c871398e0fc20e814b&" alt=""></a>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-sm text-gray-600">Nosso bolo prata queridinho! #confeitaria #bolos</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 2 -->
+                    <div class="instagram-post">
+                        <div class="bg-[#f0f9ef] aspect-square flex items-center justify-center">
+                           <a target="_blank" href="https://www.instagram.com/p/C8KVngfuB3N/"><img src="https://cdn.discordapp.com/attachments/770817143323099148/1383184547163799684/IMG_8276.png?ex=684dde7e&is=684c8cfe&hm=a8a4c329e7559e8f8bd6ee46360d032ad81927258b28e005223d30b6cc3a2f31&" alt=""></a>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-sm text-gray-600">Aquela sacola coração que vale a pena partir e
+repartir. #diadosnamorados</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 3 -->
+                    <div class="instagram-post">
+                        <div class="bg-[#f0f9ef] aspect-square flex items-center justify-center">
+                               <a target="_blank" href="https://www.instagram.com/p/C5ekC68OhWn/?img_index=2"><img src="https://cdn.discordapp.com/attachments/770817143323099148/1383186821109911693/IMG_8277.png?ex=684de09c&is=684c8f1c&hm=fad9095a1eea1858fa769498552cc4dcc06637917aba53390f3799aff30561ff&" alt=""></a>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-sm text-gray-600">Uma páscoa recheada de amor e carinho. #pascoa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 4 -->
+                    <div class="instagram-post">
+                        <div class="bg-[#f0f9ef] aspect-square flex items-center justify-center">
+                            <a target="_blank" href="https://www.instagram.com/p/CybsSsauyt4/?img_index=1"><img src="https://cdn.discordapp.com/attachments/770817143323099148/1383188006386667580/IMG_8279.png?ex=684de1b7&is=684c9037&hm=a3f4dc955380a58f2267bced282a5800cfd7742e6ae5dc5358676269e5868b9a&" alt=""></a>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-sm text-gray-600">Preparando as delícias de aniversário! #encomenda #doces</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section with Google Maps -->
+        <section id="contato" class="py-16 bg-[#f0f9ef]">
+            <div class="container mx-auto px-4" style="margin: 0 15%;">
+                <h2 class="section-title text-3xl font-bold text-[#6b4226] mb-8">Entre em Contato</h2>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/2">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-bold text-[#6b4226] mb-4">Informações de Contato</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#86c17f] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-[#6b4226]">Endereço</h4>
+                                        <p class="text-gray-600">Rua Manoel Neto, nº 1491<br>Icó - Ceará</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#86c17f] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-[#6b4226]">Telefone</h4>
+                                        <p class="text-gray-600">(88) 99274-6480</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#86c17f] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-[#6b4226]">Horário de Funcionamento</h4>
+                                        <p class="text-gray-600">Segunda a Sábado: 9h às 19h<br>Domingo: 9h às 13h</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex space-x-4">
+                                <a target="_blank" href="https://www.instagram.com/cleus.capricho.gourmet/" class="w-10 h-10 rounded-full bg-[#a8d5a2] flex items-center justify-center text-[#6b4226] hover:bg-[#86c17f] transition duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"></path>
+                                    </svg>
+                                </a>
+                                <a target="_blank" href="https://contate.me/ios/cleuscaprichogourmet" class="w-10 h-10 rounded-full bg-[#a8d5a2] flex items-center justify-center text-[#6b4226] hover:bg-[#86c17f] transition duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden h-80">
+                            <!-- Google Maps Embed -->
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.9130081655635!2d-38.858036999999996!3d-6.405207999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7a368de9642bb83%3A0x7df85d07bb2f1502!2sAv.%20Manoel%20Neto%2C%201491%20-%20Cidade%20Nova%2C%20Ic%C3%B3%20-%20CE%2C%2063430-000!5e0!3m2!1spt-BR!2sbr!4v1749845905274!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bolos Page -->
+    <div id="bolos" class="page hidden">
+        <div class="page-container">
+            <h1 class="text-4xl font-bold text-[#6b4226] mb-8">Bolos Artesanais</h1>
+            <p class="text-lg mb-8">Nossos bolos são feitos com ingredientes selecionados e decorados com carinho para tornar seu momento ainda mais especial.</p>
+            
+            <!-- Categories -->
+            <div class="flex flex-wrap gap-4 mb-8">
+                <button class="px-6 py-2 bg-[#a8d5a2] text-[#6b4226] rounded-full font-medium">Todos</button>
+                <button class="px-6 py-2 bg-white text-[#6b4226] rounded-full font-medium hover:bg-[#f0f9ef]">Casamentos</button>
+                <button class="px-6 py-2 bg-white text-[#6b4226] rounded-full font-medium hover:bg-[#f0f9ef]">Aniversários</button>
+                <button class="px-6 py-2 bg-white text-[#6b4226] rounded-full font-medium hover:bg-[#f0f9ef]">Confeitados</button>
+                <button class="px-6 py-2 bg-white text-[#6b4226] rounded-full font-medium hover:bg-[#f0f9ef]">Naked</button>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo de Chocolate</h3>
+                        <p class="text-gray-600 mb-4">Delicioso bolo de chocolate com recheio de brigadeiro e cobertura de ganache.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 89,90</span>
+                            <button class="btn-primary py-2 px-4">Encomendar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="#a8d5a2" opacity="0.3"></circle>
+                            <path d="M60 70C60 60 80 50 100 50C120 50 140 60 140 70C140 80 120 90 100 90C80 90 60 80 60 70Z" fill="#fff9e6"></path>
+                            <path d="M60 100C60 90 80 80 100 80C120 80 140 90 140 100C140 110 120 120 100 120C80 120 60 110 60 100Z" fill="#fff9e6"></path>
+                            <path d="M60 130C60 120 80 110 100 110C120 110 140 120 140 130C140 140 120 150 100 150C80 150 60 140 60 130Z" fill="#fff9e6"></path>
+                            <circle cx="80" cy="70" r="8" fill="#ff6b6b"></circle>
+                            <circle cx="120" cy="70" r="8" fill="#ff6b6b"></circle>
+                            <circle cx="90" cy="100" r="8" fill="#ff6b6b"></circle>
+                            <circle cx="110" cy="100" r="8" fill="#ff6b6b"></circle>
+                            <circle cx="80" cy="130" r="8" fill="#ff6b6b"></circle>
+                            <circle cx="120" cy="130" r="8" fill="#ff6b6b"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo Red Velvet</h3>
+                        <p class="text-gray-600 mb-4">Clássico bolo vermelho com recheio e cobertura de cream cheese.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 99,90</span>
+                            <button class="btn-primary py-2 px-4">Encomendar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="#a8d5a2" opacity="0.3"></circle>
+                            <path d="M60 70C60 60 80 50 100 50C120 50 140 60 140 70C140 80 120 90 100 90C80 90 60 80 60 70Z" fill="#fff"></path>
+                            <path d="M60 100C60 90 80 80 100 80C120 80 140 90 140 100C140 110 120 120 100 120C80 120 60 110 60 100Z" fill="#fff"></path>
+                            <path d="M60 130C60 120 80 110 100 110C120 110 140 120 140 130C140 140 120 150 100 150C80 150 60 140 60 130Z" fill="#fff"></path>
+                            <circle cx="80" cy="70" r="8" fill="#86c17f"></circle>
+                            <circle cx="120" cy="70" r="8" fill="#86c17f"></circle>
+                            <circle cx="90" cy="100" r="8" fill="#86c17f"></circle>
+                            <circle cx="110" cy="100" r="8" fill="#86c17f"></circle>
+                            <circle cx="80" cy="130" r="8" fill="#86c17f"></circle>
+                            <circle cx="120" cy="130" r="8" fill="#86c17f"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo de Limão</h3>
+                        <p class="text-gray-600 mb-4">Bolo leve de limão com recheio de mousse cítrica e cobertura de merengue.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 79,90</span>
+                            <button class="btn-primary py-2 px-4">Encomendar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="#a8d5a2" opacity="0.3"></circle>
+                            <path d="M60 70C60 60 80 50 100 50C120 50 140 60 140 70C140 80 120 90 100 90C80 90 60 80 60 70Z" fill="#f9e4b7"></path>
+                            <path d="M60 100C60 90 80 80 100 80C120 80 140 90 140 100C140 110 120 120 100 120C80 120 60 110 60 100Z" fill="#f9e4b7"></path>
+                            <path d="M60 130C60 120 80 110 100 110C120 110 140 120 140 130C140 140 120 150 100 150C80 150 60 140 60 130Z" fill="#f9e4b7"></path>
+                            <circle cx="80" cy="70" r="8" fill="#6b4226"></circle>
+                            <circle cx="120" cy="70" r="8" fill="#6b4226"></circle>
+                            <circle cx="90" cy="100" r="8" fill="#6b4226"></circle>
+                            <circle cx="110" cy="100" r="8" fill="#6b4226"></circle>
+                            <circle cx="80" cy="130" r="8" fill="#6b4226"></circle>
+                            <circle cx="120" cy="130" r="8" fill="#6b4226"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Naked Cake</h3>
+                        <p class="text-gray-600 mb-4">Bolo semi-exposto com camadas de massa, recheio e frutas frescas.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 109,90</span>
+                            <button class="btn-primary py-2 px-4">Encomendar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="#a8d5a2" opacity="0.3"></circle>
+                            <path d="M60 70C60 60 80 50 100 50C120 50 140 60 140 70C140 80 120 90 100 90C80 90 60 80 60 70Z" fill="#fff"></path>
+                            <path d="M60 100C60 90 80 80 100 80C120 80 140 90 140 100C140 110 120 120 100 120C80 120 60 110 60 100Z" fill="#fff"></path>
+                            <path d="M60 130C60 120 80 110 100 110C120 110 140 120 140 130C140 140 120 150 100 150C80 150 60 140 60 130Z" fill="#fff"></path>
+                            <circle cx="80" cy="70" r="8" fill="#ff9494"></circle>
+                            <circle cx="120" cy="70" r="8" fill="#ff9494"></circle>
+                            <circle cx="90" cy="100" r="8" fill="#ff9494"></circle>
+                            <circle cx="110" cy="100" r="8" fill="#ff9494"></circle>
+                            <circle cx="80" cy="130" r="8" fill="#ff9494"></circle>
+                            <circle cx="120" cy="130" r="8" fill="#ff9494"></circle>
+                            <path d="M90 40L100 30L110 40" stroke="#6b4226" stroke-width="2"></path>
+                            <path d="M80 45L90 35L100 45" stroke="#6b4226" stroke-width="2"></path>
+                            <path d="M100 45L110 35L120 45" stroke="#6b4226" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo de Aniversário</h3>
+                        <p class="text-gray-600 mb-4">Bolo festivo personalizado com decoração temática à sua escolha.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 129,90</span>
+                            <button class="btn-primary py-2 px-4">Encomendar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="#a8d5a2" opacity="0.3"></circle>
+                            <path d="M60 70C60 60 80 50 100 50C120 50 140 60 140 70C140 80 120 90 100 90C80 90 60 80 60 70Z" fill="#fff"></path>
+                            <path d="M60 100C60 90 80 80 100 80C120 80 140 90 140 100C140 110 120 120 100 120C80 120 60 110 60 100Z" fill="#fff"></path>
+                            <path d="M60 130C60 120 80 110 100 110C120 110 140 120 140 130C140 140 120 150 100 150C80 150 60 140 60 130Z" fill="#fff"></path>
+                            <circle cx="80" cy="70" r="8" fill="#ff9494"></circle>
+                            <circle cx="120" cy="70" r="8" fill="#ff9494"></circle>
+                            <circle cx="90" cy="100" r="8" fill="#ff9494"></circle>
+                            <circle cx="110" cy="100" r="8" fill="#ff9494"></circle>
+                            <circle cx="80" cy="130" r="8" fill="#ff9494"></circle>
+                            <circle cx="120" cy="130" r="8" fill="#ff9494"></circle>
+                            <path d="M70 40L100 20L130 40" stroke="#6b4226" stroke-width="2"></path>
+                            <path d="M100 20V40" stroke="#6b4226" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Bolo de Casamento</h3>
+                        <p class="text-gray-600 mb-4">Elegante bolo de múltiplos andares para celebrar seu dia especial.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 299,90</span>
+                            <button class="btn-primary py-2 px-4">Encomendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="flex justify-center mt-12">
+                <div class="flex space-x-2">
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#a8d5a2] text-[#6b4226] font-medium">1</a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-[#6b4226] font-medium hover:bg-[#f0f9ef]">2</a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-[#6b4226] font-medium hover:bg-[#f0f9ef]">3</a>
+                    <span class="w-10 h-10 flex items-center justify-center">...</span>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-[#6b4226] font-medium hover:bg-[#f0f9ef]">8</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cones Trufados Page -->
+    <div id="cones" class="page hidden">
+        <div class="page-container">
+            <h1 class="text-4xl font-bold text-[#6b4226] mb-8">Cones Trufados</h1>
+            <p class="text-lg mb-8">Nossos cones trufados são perfeitos para festas, eventos ou para adoçar seu dia. Cada cone é recheado com nossas deliciosas trufas artesanais.</p>
+            
+            <!-- Categories -->
+            <div class="flex flex-wrap gap-4 mb-8">
+                <button class="px-6 py-2 bg-[#a8d5a2] text-[#6b4226] rounded-full font-medium">Todos</button>
+                <button class="px-6 py-2 bg-white text-[#6b4226] rounded-full font-medium hover:bg-[#f0f9ef]">Chocolate</button>
+                <button class="px-6 py-2 bg-white text-[#6b4226] rounded-full font-medium hover:bg-[#f0f9ef]">Frutas</button>
+                <button class="px-6 py-2 bg-white text-[#6b4226] rounded-full font-medium hover:bg-[#f0f9ef]">Especiais</button>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 40L120 140H80L100 40Z" fill="#f9e4b7"></path>
+                            <path d="M100 40L120 140H80L100 40Z" stroke="#e6b97a" stroke-width="2"></path>
+                            <path d="M85 120C85 110 115 110 115 120V140H85V120Z" fill="#6b4226"></path>
+                            <circle cx="100" cy="70" r="10" fill="#6b4226"></circle>
+                            <circle cx="100" cy="100" r="8" fill="#6b4226"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Cone Trufado de Chocolate</h3>
+                        <p class="text-gray-600 mb-4">Cone crocante recheado com trufa de chocolate meio amargo.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 12,90</span>
+                            <button class="btn-primary py-2 px-4">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 40L120 140H80L100 40Z" fill="#f9e4b7"></path>
+                            <path d="M100 40L120 140H80L100 40Z" stroke="#e6b97a" stroke-width="2"></path>
+                            <path d="M85 120C85 110 115 110 115 120V140H85V120Z" fill="#ff9494"></path>
+                            <circle cx="100" cy="70" r="10" fill="#ff9494"></circle>
+                            <circle cx="100" cy="100" r="8" fill="#ff9494"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Cone Trufado de Morango</h3>
+                        <p class="text-gray-600 mb-4">Cone crocante recheado com trufa de chocolate branco e morango.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 13,90</span>
+                            <button class="btn-primary py-2 px-4">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 40L120 140H80L100 40Z" fill="#f9e4b7"></path>
+                            <path d="M100 40L120 140H80L100 40Z" stroke="#e6b97a" stroke-width="2"></path>
+                            <path d="M85 120C85 110 115 110 115 120V140H85V120Z" fill="#86c17f"></path>
+                            <circle cx="100" cy="70" r="10" fill="#86c17f"></circle>
+                            <circle cx="100" cy="100" r="8" fill="#86c17f"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Cone Trufado de Limão</h3>
+                        <p class="text-gray-600 mb-4">Cone crocante recheado com trufa de chocolate branco e limão.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 13,90</span>
+                            <button class="btn-primary py-2 px-4">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 40L120 140H80L100 40Z" fill="#f9e4b7"></path>
+                            <path d="M100 40L120 140H80L100 40Z" stroke="#e6b97a" stroke-width="2"></path>
+                            <path d="M85 120C85 110 115 110 115 120V140H85V120Z" fill="#a67c52"></path>
+                            <circle cx="100" cy="70" r="10" fill="#a67c52"></circle>
+                            <circle cx="100" cy="100" r="8" fill="#a67c52"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Cone Trufado de Caramelo</h3>
+                        <p class="text-gray-600 mb-4">Cone crocante recheado com trufa de chocolate e caramelo salgado.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 14,90</span>
+                            <button class="btn-primary py-2 px-4">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 40L120 140H80L100 40Z" fill="#f9e4b7"></path>
+                            <path d="M100 40L120 140H80L100 40Z" stroke="#e6b97a" stroke-width="2"></path>
+                            <path d="M85 120C85 110 115 110 115 120V140H85V120Z" fill="#d4a6e9"></path>
+                            <circle cx="100" cy="70" r="10" fill="#d4a6e9"></circle>
+                            <circle cx="100" cy="100" r="8" fill="#d4a6e9"></circle>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Cone Trufado de Frutas Vermelhas</h3>
+                        <p class="text-gray-600 mb-4">Cone crocante recheado com trufa de chocolate e mix de frutas vermelhas.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 14,90</span>
+                            <button class="btn-primary py-2 px-4">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="bg-[#f0f9ef] h-64 flex items-center justify-center">
+                        <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 40L120 140H80L100 40Z" fill="#f9e4b7"></path>
+                            <path d="M100 40L120 140H80L100 40Z" stroke="#e6b97a" stroke-width="2"></path>
+                            <path d="M85 120C85 110 115 110 115 120V140H85V120Z" fill="#6b4226"></path>
+                            <circle cx="100" cy="70" r="10" fill="#6b4226"></circle>
+                            <circle cx="100" cy="100" r="8" fill="#6b4226"></circle>
+                            <path d="M80 60L90 50M110 50L120 60M90 80L80 90M120 90L110 80" stroke="#ffd700" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94f43f972246941c',t:'MTc0OTg0NTYwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></div></div></div></div><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe></body></html>

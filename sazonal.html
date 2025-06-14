@@ -1,0 +1,745 @@
+<html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doces Pascoais - Cleu's Capricho Gourmet</title>
+    <link
+    rel="icon"
+    href="/empres/img/logo2.png"
+    type="image/x-icon"
+    >
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pastel-green-light: #d1e8d0;
+            --pastel-green: #a8d5a2;
+            --pastel-green-dark: #86c17f;
+            --cream: #fff9f0;
+            --brown: #6b4226;
+            --easter-purple: #c8a2c8;
+            --easter-yellow: #ffd966;
+            --easter-blue: #a2c8c8;
+            --easter-pink: #ffb6c1;
+        }
+        
+        *{
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream);
+            color: #333;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--pastel-green-dark);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--pastel-green);
+            border: none;
+            color: var(--brown);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--pastel-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .product-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            bottom: -10px;
+            left: 0;
+            background-color: var(--pastel-green);
+        }
+        
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--pastel-green);
+            color: var(--brown);
+        }
+        
+        .filter-btn:hover:not(.active) {
+            background-color: var(--pastel-green-light);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--easter-purple);
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .product-image {
+            transition: all 0.5s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--cream);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close {
+            color: var(--brown);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: black;
+        }
+        
+        .flavor-option {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .flavor-option:hover {
+            background-color: var(--pastel-green-light);
+        }
+        
+        .flavor-option.selected {
+            background-color: var(--pastel-green);
+            border-color: var(--pastel-green-dark);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            overflow: hidden;
+            width: fit-content;
+        }
+        
+        .quantity-btn {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-btn:hover {
+            background-color: var(--pastel-green-light);
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+            background: transparent;
+        }
+        
+        .quantity-input:focus {
+            outline: none;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--brown);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--pastel-green-dark);
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 8px;
+        }
+        
+        /* Pagination */
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-btn.active {
+            background-color: var(--pastel-green);
+            color: var(--brown);
+        }
+        
+        .pagination-btn:hover:not(.active) {
+            background-color: var(--pastel-green-light);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 100;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+            
+            .mobile-menu ul {
+                padding: 1rem;
+            }
+            
+            .mobile-menu li {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        /* Easter specific styles */
+        .easter-gradient {
+            background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-blue) 100%);
+        }
+        
+        .easter-badge {
+            background-color: var(--easter-purple);
+        }
+        
+        .easter-btn {
+            background-color: var(--easter-purple);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .easter-btn:hover {
+            background-color: #b68cb6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .easter-egg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a2c8' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 80px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--easter-purple);
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+             <a href="index.html" class="logo text-2xl text-[#6b4226] flex items-center">
+                <img src="img/logo.png" alt="logo" width="70" class="mr-2">
+                Cleu's Capricho Gourmet
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-menu">
+                <ul class="flex space-x-8">
+                    <li><a href="index.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Home</a></li>
+                    <li><a href="bolos.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Bolos</a></li>
+                    <li><a href="cones.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Cones Trufados</a></li>
+                    <li><a href="bolos-pote.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Bolos de Pote</a></li>
+                    <li><a href="sazonal.html" class="nav-link text-[#6b4226] hover:text-[#86c17f] font-medium">Páscoa</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn text-[#6b4226]" id="mobile-menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>Doces Pascoais</span>
+        </div>
+        
+        <!-- Hero Section -->
+        <section class="easter-gradient rounded-2xl p-8 mb-12 text-white">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Doces Pascoais</h1>
+                    <p class="text-lg mb-6">Celebre a Páscoa com nossas deliciosas criações artesanais. Ovos de chocolate, coelhinhos, cestas e muito mais para tornar sua celebração ainda mais especial.</p>
+                    <a href="#produtos" class="easter-btn inline-block px-6 py-3 rounded-full font-medium">Ver Produtos</a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="img/logo2.png" alt="logo">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Countdown Section -->
+        <section class="bg-white rounded-2xl p-8 mb-12 text-center easter-egg-pattern">
+            <h2 class="text-3xl font-bold text-[#6b4226] mb-4">Contagem Regressiva para a Páscoa</h2>
+            <p class="text-lg mb-6">Faça sua encomenda com antecedência para garantir seus doces pascoais!</p>
+            
+            <div class="countdown-timer" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="countdown-days">00</span>
+                    <span class="countdown-label">Dias</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="countdown-hours">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="countdown-minutes">00</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="countdown-seconds">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
+            
+            <p class="text-sm text-gray-600">Aceitamos encomendas até 7 dias antes da Páscoa</p>
+            </section>
+            <section class="mb-12" id="produtos">
+            <h2 class="section-title text-3xl font-bold text-[#6b4226] mb-8">Nossos Doces Pascoais</h2>
+            <script>
+            // Contagem regressiva para 5 de abril de 2026
+            (function() {
+            const countdownDate = new Date('2026-04-05T00:00:00-03:00').getTime();
+            function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            if (distance < 0) {
+            document.getElementById('countdown-days').textContent = '00';
+            document.getElementById('countdown-hours').textContent = '00';
+            document.getElementById('countdown-minutes').textContent = '00';
+            document.getElementById('countdown-seconds').textContent = '00';
+            return;
+            }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            })();
+            </script>
+        
+        
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="ovos">
+                    <div class="relative overflow-hidden">
+                        <div class="product-badge">Mais Vendido</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                            <img src="https://media.discordapp.net/attachments/770817143323099148/1383223783799914506/IMG_8302.png?ex=684e0309&is=684cb189&hm=9fa0091ab7b65043d190343b746f17c0b3e4c4d137be8b36f8b2747c3bb90553&=&format=webp&quality=lossless" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Ovo Nutella Power</h3>
+                        <p class="text-gray-600 mb-4">Delicioso ovo de Páscoa feito com chocolate Belga, recheado com Nutella, M&M e Kinderbueno.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 89,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card" data-category="ovos">
+                    <div class="relative overflow-hidden">
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                            <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383215619352166410/7dc3f528-b134-4ae8-a25b-210e22e2b73e.jpg?ex=684dfb6e&is=684ca9ee&hm=67a69fc703c16ebf4f47333a91e53ce6b01f6e81804381a29b93558e638b50a9&" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Ovo de Chocolate Branco</h3>
+                        <p class="text-gray-600 mb-4">Ovo de Páscoa de chocolate branco com recheio de mousse de morango e pedaços de frutas.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 79,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card" data-category="ovos">
+                    <div class="relative overflow-hidden">
+                        <div class="product-badge">Novo</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                            <img src="https://media.discordapp.net/attachments/770817143323099148/1383220348895367319/IMG_8294.png?ex=684dffd6&is=684cae56&hm=5de2d222775f542cbb28f530457cc0e39c30c9958a67ca21da63f7d6b0c2d0bd&=&format=webp&quality=lossless" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Ovo Trufado Premium</h3>
+                        <p class="text-gray-600 mb-4">Ovo de chocolate ao leite com camada interna de trufa cremosa e decoração de Ferrero Rocher.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 99,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card" data-category="cestas">
+                    <div class="relative overflow-hidden">
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                            <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383221530896367797/IMG_8296.png?ex=684e00ef&is=684caf6f&hm=fca5c2e1948a0638ed611d084c99c90908665dc7f8e4a1c62e5b8c60c23f615f&" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Caixa de Páscoa Tradicional</h3>
+                        <p class="text-gray-600 mb-4"> Caixa com 1 mini ovo e 2 cones trufados.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 89,90</span>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card" data-category="cestas">
+                    <div class="relative overflow-hidden">
+                        <div class="product-badge">Infantil</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                            <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383221986553233558/IMG_8297.png?ex=684e015c&is=684cafdc&hm=6666d03fb06e1d4c5dfd7feeefda7f50258277bd029cd15e1a360367a4197f37&" alt="">
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Caixa de Ovinhos</h3>
+                        <p class="text-gray-600 mb-4">Caixa com 5 mini ovos com recheios tradicionais.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 49,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card" data-category="cestas">
+                    <div class="relative overflow-hidden">
+                        <div class="product-badge">Premium</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                         <img src="https://media.discordapp.net/attachments/770817143323099148/1383223784160362699/IMG_8301.png?ex=684e0309&is=684cb189&hm=552a0793494d310987efb740a27d819e006ceb226ed4dabab8cf04de90a0c9f2&=&format=webp&quality=lossless" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Caixa de Ovinhos Premium</h3>
+                        <p class="text-gray-600 mb-4">Caixa com 4 mini ovos com recheios premium.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 69,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 7 -->
+                <div class="product-card" data-category="coelhos">
+                    <div class="relative overflow-hidden">
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                        <img src="https://media.discordapp.net/attachments/770817143323099148/1383226599381536859/IMG_8304.png?ex=684e05a8&is=684cb428&hm=3e44d223db010e090509f0eec8a3417b89bc3d587356d0b26e190462091de069&=&format=webp&quality=lossless" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Ovo Blister</h3>
+                        <p class="text-gray-600 mb-4">Ovos tradicionais sem recheio.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 59,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="product-card" data-category="coelhos">
+                    <div class="relative overflow-hidden">
+                        <div class="product-badge">Recheado</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                            <img src="https://cdn.discordapp.com/attachments/770817143323099148/1383228024077680660/IMG_8305.png?ex=684e06fc&is=684cb57c&hm=7f93aad78b105d074d6fbdc3b311bc000f711243bbea58508342a461c49f6791&" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Ovo KinderJoy</h3>
+                        <p class="text-gray-600 mb-4">Ovo recheado com crosta de KinderJoy + Brinde.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 99,90</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 9 -->
+                <div class="product-card" data-category="kits">
+                    <div class="relative overflow-hidden">
+                        <div class="product-badge">Kit Kids</div>
+                        <div class="bg-[#f0f9ef] h-64 flex items-center justify-center product-image">
+                            <img src="https://docesesalgadosbh.com.br/wp-content/uploads/2022/03/Kit-Confeiteiro-de-P%C3%A1scoa-1024x1024.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#6b4226] mb-2">Kit DIY Kids</h3>
+                        <p class="text-gray-600 mb-4">Kit com 1 ovo pequeno, 2 tubos de confetes, 1 bisnaga de recheio e docinhos sortidos.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-[#6b4226]">R$ 89,90</span>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Information Section -->
+        <section class="bg-white rounded-2xl p-8 mb-12">
+            <div class="flex flex-col md:flex-row items-start gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-2xl font-bold text-[#6b4226] mb-6">Informações sobre nossos Doces Pascoais</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Ingredientes</h3>
+                            <p class="text-gray-600">Utilizamos chocolates de alta qualidade, com no mínimo 54% de cacau para os chocolates ao leite e 70% para os chocolates amargos. Todos os recheios são feitos artesanalmente em nossa cozinha.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Personalização</h3>
+                            <p class="text-gray-600">Oferecemos opções de personalização para todos os nossos produtos pascoais. Você pode escolher o tipo de chocolate, recheio, decoração e até mesmo adicionar uma mensagem especial.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Encomendas</h3>
+                            <p class="text-gray-600">Para garantir seus doces pascoais, recomendamos fazer a encomenda com pelo menos 7 dias de antecedência. As entregas são realizadas até 2 dias antes da Páscoa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-2xl font-bold text-[#6b4226] mb-6">Perguntas Frequentes</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Vocês fazem ovos sem açúcar?</h3>
+                            <p class="text-gray-600">Sim, temos opções de ovos de Páscoa sem adição de açúcar, adoçados com eritritol ou xilitol, ideais para diabéticos ou pessoas em dieta.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Qual a validade dos produtos?</h3>
+                            <p class="text-gray-600">Nossos produtos de chocolate têm validade de 30 dias se mantidos em local fresco e seco, longe da luz solar direta e de fontes de calor.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[#6b4226] mb-2">Fazem entrega?</h3>
+                            <p class="text-gray-600">Sim, realizamos entregas em toda a cidade. O valor do frete varia conforme a região e será informado no momento da encomenda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        
+        
+        <!-- Call to Action -->
+        <section class="easter-gradient rounded-2xl p-8 text-center text-white">
+            <h2 class="text-3xl font-bold mb-4">Pronto para adoçar sua Páscoa?</h2>
+            <p class="mb-6 max-w-2xl mx-auto">Entre em contato conosco para encomendar seus doces pascoais favoritos ou tirar qualquer dúvida. Estamos ansiosos para tornar sua Páscoa ainda mais especial!</p>
+            <div class="flex justify-center space-x-4">
+                <a href="https://contate.me/ios/cleuscaprichogourmet" target="_blank" class="btn-primary bg-white text-[#6b4226] hover:bg-[#f0f9ef]">WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#6b4226] text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Cleu's Capricho Gourmet</h3>
+                    <p class="mb-4">Adoçando momentos especiais com criações artesanais feitas com amor e dedicação.
+                        <br>
+                        <br>
+                        &copy; 2025 Victor Garcia, Thais Estrela, Lucas Lemos e Felipe Dourado. Todos os direitos reservados. Universidade Católica de Brasília
+                    </p>
+                    <div class="flex space-x-4">
+                        <a target="_blank" href="https://www.instagram.com/cleus.capricho.gourmet/" class="text-white hover:text-[#a8d5a2]">
+                            <svg xmlns="https://www.instagram.com/cleus.capricho.gourmet/" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"></path>
+                            </svg>
+                        </a>
+                        <a target="_blank" href="https://contate.me/ios/cleuscaprichogourmet" class="text-white hover:text-[#a8d5a2]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-white hover:text-[#a8d5a2]">Home</a></li>
+                        <li><a href="bolos.html" class="text-white hover:text-[#a8d5a2]">Bolos</a></li>
+                        <li><a href="cones.html" class="text-white hover:text-[#a8d5a2]">Cones Trufados</a></li>
+                        <li><a href="bolos-pote.html" class="text-white hover:text-[#a8d5a2]">Bolos de Pote</a></li>
+                        <li><a href="sazonal.html" class="text-white hover:text-[#a8d5a2]">Páscoa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contato</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>Rua Manoel Neto, nº 1491<br>Icó - Ceará</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
